@@ -1,3 +1,11 @@
+
+- name: yum update
+  become: yes
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_os_family == "Centos" or ansible_os_family == "RedHat
+
 - name: create directory to put aws-log-agent
   become: yes
   file:

@@ -1,0 +1,5 @@
+- name: web-provisioning
+  hosts: web
+  roles:
+    - common
+    - nginx

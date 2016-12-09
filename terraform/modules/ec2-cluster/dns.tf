@@ -1,6 +1,7 @@
 
 # create route53 zone and register the domain of cluster instances
 resource "aws_route53_zone" "routing_to_zone" {
+  count = "${signum(var.instance_count)}"
   name = "${var.domain}"
 }
 

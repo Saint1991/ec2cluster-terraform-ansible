@@ -1,5 +1,4 @@
 
-
 resource "aws_cloudwatch_metric_alarm" "alert" {
   count = "${var.instance_count * length(var.alert_rules)}"
   alarm_name = "${element(aws_instance.ec2_instance.*.tags.Name, count.index / length(var.alert_rules))}"

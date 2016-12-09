@@ -23,7 +23,7 @@ resource "aws_volume_attachment" "volume_attachment" {
 // raid
 resource "null_resource" "raid" {
   depends_on = ["aws_volume_attachment.volume_attachment"]
-  count = "${var.instance_count}"
+  count = "${signum(var.raid_factor) * var.instance_count}"
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y mdadm xfsprogs",

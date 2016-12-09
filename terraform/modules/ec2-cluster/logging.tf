@@ -31,17 +31,20 @@ data "template_file" "log_conf" {
 
 # a bucket to put logs
 resource "aws_s3_bucket" "log_bucket" {
+  count = "${signum(var.instance_count)}"
   bucket = "${var.log_bucket}"
   force_destroy = "${var.bucket_force_destroy}"
   acl = "private"
 }
 
 resource "aws_s3_bucket_policy" "log_bucket_policy" {
+  count = "${signum(var.instance_count)}"
   bucket = "${aws_s3_bucket.log_bucket.bucket}"
   policy = "${data.aws_iam_policy_document.log_bucket_policy_document.json}"
 }
 
 data "aws_iam_policy_document" "log_bucket_policy_document" {
+  count = "${signum(var.instance_count)}"
   statement {
     actions = [
       "s3:PutObject"
